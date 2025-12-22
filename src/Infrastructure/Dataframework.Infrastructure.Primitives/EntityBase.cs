@@ -1,3 +1,8 @@
-﻿namespace Dataframework.Infrastructure.Primitives;
+﻿using Dataframework.Abstractions.Primitives;
 
-public class EntityBase<TId>;
+namespace Dataframework.Infrastructure.Primitives;
+
+public abstract class EntityBase<TId> : IId<TId>
+{
+    public TId Id { get; set; } = default!;
+}
