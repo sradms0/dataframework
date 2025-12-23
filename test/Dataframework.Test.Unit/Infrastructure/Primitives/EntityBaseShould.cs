@@ -1,10 +1,10 @@
-﻿using Dataframework.Abstractions.Primitives;
-using Dataframework.Infrastructure.Primitives;
-using Dataframework.Test.Common;
-using FluentAssertions;
+﻿using FluentAssertions;
 using NUnit.Framework;
+using Queueware.Dataframework.Abstractions.Primitives;
+using Queueware.Dataframework.Infrastructure.Primitives;
+using Queueware.Dataframework.Test.Common;
 
-namespace Dataframework.Test.Unit.Infrastructure.Primitives;
+namespace Queueware.Dataframework.Test.Unit.Infrastructure.Primitives;
 
 public class EntityBaseShould : CommonTestBase
 {
