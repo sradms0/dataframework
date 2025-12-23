@@ -1,6 +1,6 @@
 ﻿using AutoFixture;
 
-namespace Dataframework.Test.Common;
+namespace Queueware.Dataframework.Test.Common;
 
 public abstract class CommonTestBase
 {

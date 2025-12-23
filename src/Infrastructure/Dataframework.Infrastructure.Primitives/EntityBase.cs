@@ -1,6 +1,6 @@
-﻿using Dataframework.Abstractions.Primitives;
+﻿using Queueware.Dataframework.Abstractions.Primitives;
 
-namespace Dataframework.Infrastructure.Primitives;
+namespace Queueware.Dataframework.Infrastructure.Primitives;
 
 /// <summary>
 /// Provides a minimal base implementation for entities that require a

@@ -1,4 +1,4 @@
-﻿namespace Dataframework.Abstractions.Primitives;
+﻿namespace Queueware.Dataframework.Abstractions.Primitives;
 
 /// <summary>
 /// Defines a contract for types that expose a strongly-typed identifier.
