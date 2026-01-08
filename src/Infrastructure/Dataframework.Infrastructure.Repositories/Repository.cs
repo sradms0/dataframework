@@ -1,0 +1,89 @@
+﻿using System.Linq.Expressions;
+using Queueware.Dataframework.Abstractions.DataSources;
+using Queueware.Dataframework.Abstractions.Primitives;
+using Queueware.Dataframework.Abstractions.Repositories;
+
+namespace Queueware.Dataframework.Infrastructure.Repositories;
+
+/// <inheritdoc />
+public class Repository<TId, TEntity, TDataContext>(IDataContextFactory<TDataContext> dataContextFactory)
+    : IRepository<TId, TEntity> where TEntity : IId<TId> where TDataContext : class, IDataContext
+{
+    /// <inheritdoc />
+    public Task<int> CountAsync(CancellationToken cancellationToken)
+    {
+        throw new NotImplementedException();
+    }
+
+    /// <inheritdoc />
+    public Task<int> CountAsync(Expression<Func<TEntity, bool>> expression, CancellationToken cancellationToken)
+    {
+        throw new NotImplementedException();
+    }
+
+    /// <inheritdoc />
+    public Task DeleteAsync(TEntity entity, CancellationToken cancellationToken)
+    {
+        throw new NotImplementedException();
+    }
+
+    /// <inheritdoc />
+    public Task DeleteAsync(IEnumerable<TEntity> entities, CancellationToken cancellationToken)
+    {
+        throw new NotImplementedException();
+    }
+
+    /// <inheritdoc />
+    public Task<TEntity?> FindAsync(Expression<Func<TEntity, bool>> expression, CancellationToken cancellationToken)
+    {
+        throw new NotImplementedException();
+    }
+
+    /// <inheritdoc />
+    public Task<TEntity?> FirstOrDefaultAsync(Expression<Func<TEntity, bool>> expression, CancellationToken cancellationToken)
+    {
+        throw new NotImplementedException();
+    }
+
+    /// <inheritdoc />
+    public Task<TEntity?> GetByIdAsync(TId id, CancellationToken cancellationToken)
+    {
+        throw new NotImplementedException();
+    }
+
+    /// <inheritdoc />
+    public Task<IEnumerable<TEntity>> GetByIdAsync(IEnumerable<TId> ids, CancellationToken cancellationToken)
+    {
+        throw new NotImplementedException();
+    }
+
+    /// <inheritdoc />
+    public Task InsertAsync(TEntity entity, CancellationToken cancellationToken)
+    {
+        throw new NotImplementedException();
+    }
+
+    /// <inheritdoc />
+    public Task InsertAsync(IEnumerable<TEntity> entities, CancellationToken cancellationToken)
+    {
+        throw new NotImplementedException();
+    }
+
+    /// <inheritdoc />
+    public Task UpdateAsync(TEntity entity, CancellationToken cancellationToken)
+    {
+        throw new NotImplementedException();
+    }
+
+    /// <inheritdoc />
+    public Task UpdateAsync(IEnumerable<TEntity> entities, CancellationToken cancellationToken)
+    {
+        throw new NotImplementedException();
+    }
+
+    /// <inheritdoc />
+    public Task UpdateAsync<TField>(TEntity entity, Expression<Func<TEntity, TField>> field, TField value, CancellationToken cancellationToken)
+    {
+        throw new NotImplementedException();
+    }
+}
