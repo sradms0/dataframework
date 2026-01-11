@@ -48,7 +48,10 @@ public interface IRepository<in TId, TEntity> where TEntity : IId<TId>
     /// <param name="cancellationToken">
     /// A token to observe while waiting for the operation to complete.
     /// </param>
-    Task DeleteAsync(TEntity entity, CancellationToken cancellationToken);
+    /// <returns>
+    /// <c>true</c> if the entity was deleted; otherwise, <c>false</c>.
+    /// </returns>
+    Task<bool> DeleteAsync(TEntity entity, CancellationToken cancellationToken);
 
     /// <summary>
     /// Removes multiple entities from the repository.
@@ -59,14 +62,46 @@ public interface IRepository<in TId, TEntity> where TEntity : IId<TId>
     /// <param name="cancellationToken">
     /// A token to observe while waiting for the operation to complete.
     /// </param>
-    Task DeleteAsync(IEnumerable<TEntity> entities, CancellationToken cancellationToken);
+    /// <returns>
+    /// <c>true</c> if the deletion occurred; otherwise, <c>false</c>.
+    /// </returns>
+    Task<bool> DeleteAsync(IEnumerable<TEntity> entities, CancellationToken cancellationToken);
+    
+    /// <summary>
+    /// Removes the entity of the specified identifier from the repository.
+    /// </summary>
+    /// <param name="id">
+    /// The entity of the identifier to remove.
+    /// </param>
+    /// <param name="cancellationToken">
+    /// A token to observe while waiting for the operation to complete.
+    /// </param>
+    /// <returns>
+    /// <c>true</c> if the entity was deleted; otherwise, <c>false</c>.
+    /// </returns>
+    Task<bool> DeleteAsync(TId id, CancellationToken cancellationToken);
+    
+    /// <summary>
+    /// Removes multiple entities of the specified identifiers from the repository.
+    /// </summary>
+    /// <param name="ids">
+    /// The entity identifiers.
+    /// </param>
+    /// <param name="cancellationToken">
+    /// A token to observe while waiting for the operation to complete.
+    /// </param>
+    /// <returns>
+    /// <c>true</c> if the deletion occurred; otherwise, <c>false</c>.
+    /// </returns>
+    Task<bool> DeleteAsync(IEnumerable<TId> ids, CancellationToken cancellationToken);
 
     /// <summary>
-    /// Returns an entity that satisfies the specified predicate, or <c>null</c> if no such entity exists.
+    /// Returns all entities that satisfy the specified predicate.
     /// </summary>
     /// <remarks>
-    /// If more than one entity matches the predicate, the selection behavior is implementation-defined.
-    /// Use <see cref="FirstOrDefaultAsync(Expression{Func{TEntity, bool}}, CancellationToken)"/> when ordering matters.
+    /// If no entities match the predicate, an empty collection is returned.
+    /// The ordering of the returned entities is implementation-defined unless
+    /// otherwise documented.
     /// </remarks>
     /// <param name="expression">
     /// A predicate used to filter the entities.
@@ -75,9 +110,10 @@ public interface IRepository<in TId, TEntity> where TEntity : IId<TId>
     /// A token to observe while waiting for the operation to complete.
     /// </param>
     /// <returns>
-    /// A matching entity, or <c>null</c>.
+    /// A collection of entities that satisfy the specified predicate.
     /// </returns>
-    Task<TEntity?> FindAsync(Expression<Func<TEntity, bool>> expression, CancellationToken cancellationToken);
+    Task<IEnumerable<TEntity>> FindAsync(Expression<Func<TEntity, bool>> expression,
+        CancellationToken cancellationToken);
 
     /// <summary>
     /// Returns the first entity that satisfies the specified predicate, or <c>null</c> if no such entity exists.
@@ -134,7 +170,7 @@ public interface IRepository<in TId, TEntity> where TEntity : IId<TId>
     /// <param name="cancellationToken">
     /// A token to observe while waiting for the operation to complete.
     /// </param>
-    Task InsertAsync(TEntity entity, CancellationToken cancellationToken);
+    Task<bool> InsertAsync(TEntity entity, CancellationToken cancellationToken);
 
     /// <summary>
     /// Inserts multiple entities into the repository.
@@ -145,7 +181,7 @@ public interface IRepository<in TId, TEntity> where TEntity : IId<TId>
     /// <param name="cancellationToken">
     /// A token to observe while waiting for the operation to complete.
     /// </param>
-    Task InsertAsync(IEnumerable<TEntity> entities, CancellationToken cancellationToken);
+    Task<bool> InsertAsync(IEnumerable<TEntity> entities, CancellationToken cancellationToken);
 
     /// <summary>
     /// Updates the specified entity in the repository.
@@ -156,7 +192,7 @@ public interface IRepository<in TId, TEntity> where TEntity : IId<TId>
     /// <param name="cancellationToken">
     /// A token to observe while waiting for the operation to complete.
     /// </param>
-    Task UpdateAsync(TEntity entity, CancellationToken cancellationToken);
+    Task<bool> UpdateAsync(TEntity entity, CancellationToken cancellationToken);
 
     /// <summary>
     /// Updates multiple entities in the repository.
@@ -167,7 +203,7 @@ public interface IRepository<in TId, TEntity> where TEntity : IId<TId>
     /// <param name="cancellationToken">
     /// A token to observe while waiting for the operation to complete.
     /// </param>
-    Task UpdateAsync(IEnumerable<TEntity> entities, CancellationToken cancellationToken);
+    Task<bool> UpdateAsync(IEnumerable<TEntity> entities, CancellationToken cancellationToken);
 
     /// <summary>
     /// Updates a single field of the specified entity with the given value.
@@ -187,5 +223,5 @@ public interface IRepository<in TId, TEntity> where TEntity : IId<TId>
     /// <param name="cancellationToken">
     /// A token to observe while waiting for the operation to complete.
     /// </param>
-    Task UpdateAsync<TField>(TEntity entity, Expression<Func<TEntity, TField>> field, TField value, CancellationToken cancellationToken);
+    Task<bool> UpdateAsync<TField>(TEntity entity, Expression<Func<TEntity, TField>> field, TField value, CancellationToken cancellationToken);
 }
