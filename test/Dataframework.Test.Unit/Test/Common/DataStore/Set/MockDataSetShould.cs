@@ -408,7 +408,7 @@ public class MockDataSetShould : MockDataSetTestFixture
         updatedResult.Should().BeEquivalentTo(entityToUpdate);
     }
 
-    [Test, Combinatorial]
+    [Test]
     public async Task Update_One_By_Field_Value_When_Not_Null([Values(false, true)] bool isIdNull, [Values(false, true)] bool isExpressionNull, [Values(false, true)] bool isUpdateValueNull)
     {
         // Arrange
