@@ -10,25 +10,22 @@ namespace Queueware.Dataframework.Test.Unit.Core.Services.Entities;
 
 public abstract class EntityServiceTestFixture : CommonTestBase
 {
-    protected CancellationToken CancellationToken { get; set; }
+    protected CancellationToken CancellationToken { get; private set; }
 
-    protected MockDataType1 Entity { get; set; } = null!;
-
-    protected List<MockDataType1> Entities { get; set; } = null!;
+    protected List<MockDataType1> Entities { get; private set; } = null!;
 
     protected readonly Expression<Func<MockDataType1, bool>> FindExpression = _ => true;
 
     protected Expression<Func<MockDataType1, string>> SetStringExpression = entity => entity.Name!;
 
-    protected Mock<IRepository<string, MockDataType1>> MockRepository { get; set; } = null!;
+    protected Mock<IRepository<string, MockDataType1>> MockRepository { get; private set; } = null!;
 
-    protected EntityService<string, MockDataType1> EntityService { get; set; } = null!;
+    protected EntityService<string, MockDataType1> EntityService { get; private set; } = null!;
 
     [SetUp]
     public void SetUp()
     {
         CancellationToken = CancellationToken.None;
-        Entity = Create<MockDataType1>();
         Entities = CreateMany<MockDataType1>().ToList();
         
         MockRepository = new Mock<IRepository<string, MockDataType1>>();

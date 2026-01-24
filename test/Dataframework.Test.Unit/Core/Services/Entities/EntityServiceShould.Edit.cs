@@ -33,7 +33,7 @@ public partial class EntityServiceShould
         bool? result = null;
 
         // Act (define)
-        var saveAsync = async () => result = await EntityService.SaveAsync(entityToSave!, CancellationToken);
+        var saveAsync = async () => result = await EntityService.SaveAsync(entityToSave, CancellationToken);
 
         // Assert
         await saveAsync.Should().NotThrowAsync();

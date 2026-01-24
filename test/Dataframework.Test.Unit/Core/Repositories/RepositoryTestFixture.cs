@@ -1,6 +1,7 @@
 using FluentAssertions;
 using NUnit.Framework;
 using Queueware.Dataframework.Abstractions.DataSources;
+using Queueware.Dataframework.Core.Repositories;
 using Queueware.Dataframework.Test.Common;
 using Queueware.Dataframework.Test.Common.Mocks.DataStore.Context;
 using Queueware.Dataframework.Test.Common.Mocks.DataStore.Source;
@@ -10,6 +11,8 @@ namespace Queueware.Dataframework.Test.Unit.Core.Repositories;
 
 public abstract class RepositoryTestFixture : CommonTestBase
 {
+    private MockDataContextFactory _mockDataContextFactory = null!;
+
     protected CancellationToken CancellationToken { get; private set; }
 
     protected List<MockDataType1> RepositoryEntities { get; private set; } = null!;
@@ -18,9 +21,7 @@ public abstract class RepositoryTestFixture : CommonTestBase
 
     protected MockDataContext MockDataContext { get; private set; } = null!;
 
-    protected MockDataContextFactory MockDataContextFactory { get; private set; } = null!;
-
-    protected Dataframework.Core.Repositories.Repository<string, MockDataType1, IDataContext> Repository { get; private set; } = null!;
+    protected Repository<string, MockDataType1, IDataContext> Repository { get; private set; } = null!;
 
     [SetUp]
     public void SetUp()
@@ -31,14 +32,14 @@ public abstract class RepositoryTestFixture : CommonTestBase
         MockDataSource = new MockDataSource();
         MockDataSource.Add<string, MockDataType1>(RepositoryEntities);
         MockDataContext = new MockDataContext(MockDataSource) { CancellationToken = CancellationToken };
-        MockDataContextFactory = new MockDataContextFactory(MockDataContext);
+        _mockDataContextFactory = new MockDataContextFactory(MockDataContext);
 
-        Repository = new Dataframework.Core.Repositories.Repository<string, MockDataType1, IDataContext>(MockDataContextFactory);
+        Repository = new Repository<string, MockDataType1, IDataContext>(_mockDataContextFactory);
     }
 
     protected void VerifyDataContextCreationAndDisposalCalls(int callCount)
     {
-        MockDataContextFactory.State.CreateDataContextCallCount.Should().Be(callCount);
+        _mockDataContextFactory.State.CreateDataContextCallCount.Should().Be(callCount);
         MockDataContext.State.DisposeCallCount.Should().Be(callCount);
     }
 }

@@ -51,7 +51,7 @@ public partial class Repository<TId, TEntity, TDataContext>
         var areEntitiesUpdated = false;
         
         var existingIds = await FindExistingIdsAsync(dataContext, entities, cancellationToken);
-        var existingEntitiesToUpdate = entities.Where(entity => Enumerable.Contains<TId>(existingIds, entity.Id)).ToList();
+        var existingEntitiesToUpdate = entities.Where(entity => existingIds.Contains(entity.Id)).ToList();
 
         if (existingEntitiesToUpdate.Count > 0)
         {
