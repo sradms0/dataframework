@@ -1,7 +1,7 @@
 using System.Linq.Expressions;
 using Queueware.Dataframework.Abstractions.DataSources;
 
-namespace Queueware.Dataframework.Infrastructure.Repositories;
+namespace Queueware.Dataframework.Core.Repositories;
 
 public partial class Repository<TId, TEntity, TDataContext>
 {

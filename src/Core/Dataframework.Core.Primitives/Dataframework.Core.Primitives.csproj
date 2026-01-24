@@ -7,11 +7,11 @@
     </PropertyGroup>
     
     <PropertyGroup>
-      <GenerateDocumentationFile>true</GenerateDocumentationFile>
+        <GenerateDocumentationFile>true</GenerateDocumentationFile>
     </PropertyGroup>
-
+    
     <ItemGroup>
-      <ProjectReference Include="..\..\Dataframework.Abstractions.Primitives\Dataframework.Abstractions.Primitives.csproj" />
+      <ProjectReference Include="..\..\Abstractions\Dataframework.Abstractions.Primitives\Dataframework.Abstractions.Primitives.csproj" />
     </ItemGroup>
 
 </Project>
