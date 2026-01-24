@@ -32,6 +32,6 @@ public abstract class EntityServiceTestFixture : CommonTestBase
         Entities = CreateMany<MockDataType1>().ToList();
         
         MockRepository = new Mock<IRepository<string, MockDataType1>>();
-        EntityService = new EntityService<string, MockDataType1>();
+        EntityService = new EntityService<string, MockDataType1>(MockRepository.Object);
     }
 }
