@@ -12,14 +12,14 @@ public class ExpressionSpecificationShould : ExpressionSpecificationTestFixture
     public void Check_If_Is_IsSatisfiedBy(bool isMatch, bool isNull)
     {
         // Arrange
-        var name = MockDataType1.Name;
+        var name = Candidate.Name;
         if (!isNull)
         {
-            MockDataType1.Name = isMatch ? name : null;
+            Candidate.Name = isMatch ? name : null;
         }
         else
         {
-            MockDataType1 = null!;
+            Candidate = null!;
         }
         Expression = mockDataType1 => mockDataType1.Name == name;
         Instantiate();
@@ -28,7 +28,7 @@ public class ExpressionSpecificationShould : ExpressionSpecificationTestFixture
         bool? result = null;
 
         // Act (define)
-        var isSatisfied = () => result = ExpressionSpecification.IsSatisfiedBy(MockDataType1);
+        var isSatisfied = () => result = Specification.IsSatisfiedBy(Candidate);
 
         // Assert
         var isSatisfiedShould = isSatisfied.Should();
@@ -61,15 +61,15 @@ public class ExpressionSpecificationShould : ExpressionSpecificationTestFixture
     public void Translate_ToExpression()
     {
         // Arrange
-        Expression = mockDataType1 => mockDataType1.Name == MockDataType1.Name;
+        Expression = mockDataType1 => mockDataType1.Name == Candidate.Name;
         Instantiate();
         Expression<Func<MockDataType1, bool>>? result = null;
         const bool ExpectedCompiledFuncResult = true;
         bool? compiledFuncResult = null;
         
         // Act (define)
-        var toExpression = () => result = ExpressionSpecification.ToExpression();
-        var compileAndRunFunc = () => compiledFuncResult = result?.Compile()(MockDataType1);
+        var toExpression = () => result = Specification.ToExpression();
+        var compileAndRunFunc = () => compiledFuncResult = result?.Compile()(Candidate);
 
         // Assert
         toExpression.Should().NotThrow();
