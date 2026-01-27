@@ -8,18 +8,18 @@ public class TestSpecification : Specification<MockDataType1>
 {
     private Expression<Func<MockDataType1, bool>> _testExpression { get; set; } = _ => true;
 
-    public bool isToExpressionThrowing { get; set; }
+    public bool IsToExpressionThrowing { get; set; }
     
-    public bool isTestExpressionThrowing { get; set; }
+    public bool IsTestExpressionThrowing { get; set; }
 
     public Expression<Func<MockDataType1, bool>> TestExpression
     {
-        get => isTestExpressionThrowing ? throw new Exception() :  _testExpression;
+        get => IsTestExpressionThrowing ? throw new Exception() :  _testExpression;
         set => _testExpression = value;
     }
     
     public override Expression<Func<MockDataType1, bool>> ToExpression()
     {
-        return isToExpressionThrowing ? throw new Exception() : TestExpression;
+        return IsToExpressionThrowing ? throw new Exception() : TestExpression;
     }
 }

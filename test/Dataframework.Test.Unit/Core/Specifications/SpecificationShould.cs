@@ -9,8 +9,8 @@ public class SpecificationShould : SpecificationTestFixture
     public void Check_If_IsSatisfiedBy_During_Exceptions([Values(false, true)] bool isToExpressionThrowing, [Values(false, true)] bool isTestExpressionThrowing)
     {
         // Arrange
-        Specification.isToExpressionThrowing = isToExpressionThrowing;
-        Specification.isTestExpressionThrowing = isTestExpressionThrowing;
+        Specification.IsToExpressionThrowing = isToExpressionThrowing;
+        Specification.IsTestExpressionThrowing = isTestExpressionThrowing;
         
         // Act (define)
         var isSatisfiedBy = () => Specification.IsSatisfiedBy(Candidate);
