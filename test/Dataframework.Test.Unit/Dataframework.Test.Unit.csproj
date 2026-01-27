@@ -11,6 +11,7 @@
       <ProjectReference Include="..\..\src\Core\Dataframework.Core.Primitives\Dataframework.Core.Primitives.csproj" />
       <ProjectReference Include="..\..\src\Core\Dataframework.Core.Repositories\Dataframework.Core.Repositories.csproj" />
       <ProjectReference Include="..\..\src\Core\Dataframework.Core.Services.Entities\Dataframework.Core.Services.Entities.csproj" />
+      <ProjectReference Include="..\..\src\Core\Dataframework.Core.Specifications\Dataframework.Core.Specifications.csproj" />
       <ProjectReference Include="..\Common\Dataframework.Test.Common.Attributes\Dataframework.Test.Common.Attributes.csproj" />
       <ProjectReference Include="..\Common\Dataframework.Test.Common.Mocks\Dataframework.Test.Common.Mocks.csproj" />
       <ProjectReference Include="..\Common\Dataframework.Test.Common.Utils\Dataframework.Test.Common.Utils.csproj" />
