@@ -8,6 +8,12 @@ public class AndSpecification<T>(ISpecification<T> leftSpecification, ISpecifica
 {
     public override Expression<Func<T, bool>> ToExpression()
     {
-        throw new NotImplementedException();
+        var leftExpression = leftSpecification.ToExpression();
+        var rightExpression = rightSpecification.ToExpression();
+        
+        var andAlsoExpression = Expression.AndAlso(leftExpression.Body, rightExpression.Body);
+        var expressionParameter = leftExpression.Parameters[0];
+        
+        return Expression.Lambda<Func<T, bool>>(andAlsoExpression, expressionParameter);
     }
 }
