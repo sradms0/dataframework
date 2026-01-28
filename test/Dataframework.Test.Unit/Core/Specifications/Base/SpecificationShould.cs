@@ -1,7 +1,7 @@
 using FluentAssertions;
 using NUnit.Framework;
 
-namespace Queueware.Dataframework.Test.Unit.Core.Specifications;
+namespace Queueware.Dataframework.Test.Unit.Core.Specifications.Base;
 
 public class SpecificationShould : SpecificationTestFixture
 {

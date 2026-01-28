@@ -4,7 +4,7 @@ using NUnit.Framework;
 using Queueware.Dataframework.Test.Common.Attributes.NUnit;
 using Queueware.Dataframework.Test.Unit.Test.Common.Mocks;
 
-namespace Queueware.Dataframework.Test.Unit.Core.Specifications;
+namespace Queueware.Dataframework.Test.Unit.Core.Specifications.Base;
 
 public class ExpressionSpecificationShould : ExpressionSpecificationTestFixture
 {

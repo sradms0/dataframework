@@ -2,7 +2,7 @@ using System.Linq.Expressions;
 using Queueware.Dataframework.Core.Specifications;
 using Queueware.Dataframework.Test.Unit.Test.Common.Mocks;
 
-namespace Queueware.Dataframework.Test.Unit.Core.Specifications;
+namespace Queueware.Dataframework.Test.Unit.Core.Specifications.Base;
 
 public class TestSpecification : Specification<MockDataType1>
 {
