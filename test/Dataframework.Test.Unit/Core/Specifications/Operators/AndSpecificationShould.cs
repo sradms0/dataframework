@@ -13,8 +13,12 @@ public class AndSpecificationShould : AndSpecificationTestFixture
         [Values(false, true)] bool isSecondSatisfied)
     {
         // Arrange
-        FirstExpression = _ => isFirstSatisfied;
-        SecondExpression = _ => isSecondSatisfied;
+        var candidate1Name = isFirstSatisfied ? Candidate.Name : null;
+        FirstExpression = firstMockDataType1 => firstMockDataType1.Name == candidate1Name;
+        
+        var candidate2Name  = isSecondSatisfied ? Candidate.Name : null;
+        SecondExpression = secondMockDataType1 => secondMockDataType1.Name == candidate2Name;
+        
         MockFirstSpecification.Setup(specification => specification.ToExpression()).Returns(FirstExpression);
         MockSecondSpecification.Setup(specification => specification.ToExpression()).Returns(SecondExpression);
         InitializeSystemUnderTest();
@@ -41,8 +45,12 @@ public class AndSpecificationShould : AndSpecificationTestFixture
         [Values(false, true)] bool isSecondSatisfied)
     {
         // Arrange
-        FirstExpression = _ => isFirstSatisfied;
-        SecondExpression = _ => isSecondSatisfied;
+        var candidate1Name = isFirstSatisfied ? Candidate.Name : null;
+        FirstExpression = firstMockDataType1 => firstMockDataType1.Name == candidate1Name;
+        
+        var candidate2Name  = isSecondSatisfied ? Candidate.Name : null;
+        SecondExpression = secondMockDataType1 => secondMockDataType1.Name == candidate2Name;
+        
         MockFirstSpecification.Setup(specification => specification.ToExpression()).Returns(FirstExpression);
         MockSecondSpecification.Setup(specification => specification.ToExpression()).Returns(SecondExpression);
         InitializeSystemUnderTest();
