@@ -1,6 +1,5 @@
 using System.Linq.Expressions;
 using FluentAssertions;
-using Moq;
 using NUnit.Framework;
 using Queueware.Dataframework.Test.Unit.Test.Common.Mocks;
 
@@ -13,16 +12,7 @@ public class AndSpecificationShould : AndSpecificationTestFixture
         [Values(false, true)] bool isSecondSatisfied)
     {
         // Arrange
-        var candidate1Name = isFirstSatisfied ? Candidate.Name : null;
-        FirstExpression = firstMockDataType1 => firstMockDataType1.Name == candidate1Name;
-        
-        var candidate2Name  = isSecondSatisfied ? Candidate.Name : null;
-        SecondExpression = secondMockDataType1 => secondMockDataType1.Name == candidate2Name;
-        
-        MockFirstSpecification.Setup(specification => specification.ToExpression()).Returns(FirstExpression);
-        MockSecondSpecification.Setup(specification => specification.ToExpression()).Returns(SecondExpression);
-        InitializeSystemUnderTest();
-        
+        SetupFirstAndSecondExpression(isFirstSatisfied, isSecondSatisfied);
         var expectedResult = isFirstSatisfied && isSecondSatisfied;
         bool? result = null;
         
@@ -32,29 +22,15 @@ public class AndSpecificationShould : AndSpecificationTestFixture
         // Assert
         isSatisfiedBy.Should().NotThrow();
         result.Should().Be(expectedResult);
-        
-        MockFirstSpecification.Verify(specification => specification.ToExpression(), Times.Once);
-        MockFirstSpecification.VerifyNoOtherCalls();
-        
-        MockSecondSpecification.Verify(specification => specification.ToExpression(), Times.Once);
-        MockSecondSpecification.VerifyNoOtherCalls();
-    } 
-    
+        VerifyMockSpecificationToExpressionCalls();
+    }
+
     [Test, Combinatorial]
     public void Translate_ToExpression([Values(false, true)] bool isFirstSatisfied,
         [Values(false, true)] bool isSecondSatisfied)
     {
         // Arrange
-        var candidate1Name = isFirstSatisfied ? Candidate.Name : null;
-        FirstExpression = firstMockDataType1 => firstMockDataType1.Name == candidate1Name;
-        
-        var candidate2Name  = isSecondSatisfied ? Candidate.Name : null;
-        SecondExpression = secondMockDataType1 => secondMockDataType1.Name == candidate2Name;
-        
-        MockFirstSpecification.Setup(specification => specification.ToExpression()).Returns(FirstExpression);
-        MockSecondSpecification.Setup(specification => specification.ToExpression()).Returns(SecondExpression);
-        InitializeSystemUnderTest();
-        
+        SetupFirstAndSecondExpression(isFirstSatisfied, isSecondSatisfied);
         var expressionBody = Expression.AndAlso(FirstExpression.Body, SecondExpression.Body);
         var parameter = FirstExpression.Parameters[0];
         var expectedResult = Expression.Lambda<Func<MockDataType1, bool>>(expressionBody, parameter);
@@ -75,10 +51,6 @@ public class AndSpecificationShould : AndSpecificationTestFixture
         compileAndRunFuncResult.Should().NotThrow();
         compiledFuncResult.Should().Be(expectedCompiledFuncResult);
         
-        MockFirstSpecification.Verify(specification => specification.ToExpression(), Times.Once);
-        MockFirstSpecification.VerifyNoOtherCalls();
-        
-        MockSecondSpecification.Verify(specification => specification.ToExpression(), Times.Once);
-        MockSecondSpecification.VerifyNoOtherCalls();
+        VerifyMockSpecificationToExpressionCalls();
     } 
 }
