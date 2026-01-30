@@ -7,13 +7,30 @@ internal static class ExpressionComposer
     public static Expression<Func<T, bool>> AndAlso<T>(Expression<Func<T, bool>> leftExpression,
         Expression<Func<T, bool>> rightExpression)
     {
+        var syncedRightExpressionBody = SyncRightExpressionParametersToLeft(leftExpression, rightExpression);
+        var andAlsoExpressionBody = Expression.AndAlso(leftExpression.Body, syncedRightExpressionBody);
+        
+        return Expression.Lambda<Func<T, bool>>(andAlsoExpressionBody, leftExpression.Parameters[0]);
+    }
+
+    public static Expression<Func<T, bool>> AndAlsoNot<T>(Expression<Func<T, bool>> leftExpression,
+        Expression<Func<T, bool>> rightExpression)
+    {
+        var syncedRightExpressionBody = SyncRightExpressionParametersToLeft(leftExpression, rightExpression);
+        syncedRightExpressionBody = Expression.Not(syncedRightExpressionBody);
+        var andAlsoExpressionBody = Expression.AndAlso(leftExpression.Body, syncedRightExpressionBody);
+        
+        return Expression.Lambda<Func<T, bool>>(andAlsoExpressionBody, leftExpression.Parameters[0]);
+    }
+
+    private static Expression SyncRightExpressionParametersToLeft<T>(Expression<Func<T, bool>> leftExpression,
+        Expression<Func<T, bool>> rightExpression)
+    {
         var fromParameterExpression = rightExpression.Parameters[0];
         var toParameterExpression = leftExpression.Parameters[0];
-        var updatedRightExpressionBody = new ParameterVisitor(fromParameterExpression, toParameterExpression)
-            .Visit(rightExpression.Body);
         
-        var andAlsoExpressionBody = Expression.AndAlso(leftExpression.Body, updatedRightExpressionBody);
-        return Expression.Lambda<Func<T, bool>>(andAlsoExpressionBody, toParameterExpression);
+        return new ParameterVisitor(fromParameterExpression, toParameterExpression)
+            .Visit(rightExpression.Body);
     }
 
     private sealed class ParameterVisitor(ParameterExpression fromParameterExpression, 

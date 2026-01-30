@@ -1,5 +1,6 @@
 using System.Linq.Expressions;
 using Queueware.Dataframework.Abstractions.Specifications;
+using Queueware.Dataframework.Core.Specifications.Internal;
 
 namespace Queueware.Dataframework.Core.Specifications.Operators;
 
@@ -8,6 +9,9 @@ public class AndNotSpecification<T>(ISpecification<T> leftSpecification, ISpecif
 {
     public override Expression<Func<T, bool>> ToExpression()
     {
-        throw new NotImplementedException();
+        var leftExpression = leftSpecification.ToExpression();
+        var rightExpression = rightSpecification.ToExpression();
+        
+        return ExpressionComposer.AndAlsoNot(leftExpression, rightExpression);
     }
 }
