@@ -3,7 +3,7 @@ using NUnit.Framework;
 using Queueware.Dataframework.Core.Specifications;
 using Queueware.Dataframework.Test.Common;
 
-namespace Queueware.Dataframework.Test.Unit.Core.Specifications.Base;
+namespace Queueware.Dataframework.Test.Unit.Core.Specifications.Base.Fixtures;
 
 public abstract class GenericSpecificationTestFixture<TSpecification, TCandidate> : CommonTestBase
     where TCandidate : class where TSpecification : Specification<TCandidate>

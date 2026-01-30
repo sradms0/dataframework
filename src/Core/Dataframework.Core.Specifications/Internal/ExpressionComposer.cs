@@ -1,6 +1,6 @@
 using System.Linq.Expressions;
 
-namespace Queueware.Dataframework.Core.Specifications;
+namespace Queueware.Dataframework.Core.Specifications.Internal;
 
 internal static class ExpressionComposer
 {

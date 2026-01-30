@@ -2,6 +2,7 @@ using System.Linq.Expressions;
 using FluentAssertions;
 using NUnit.Framework;
 using Queueware.Dataframework.Test.Common.Attributes.NUnit;
+using Queueware.Dataframework.Test.Unit.Core.Specifications.Base.Fixtures;
 using Queueware.Dataframework.Test.Unit.Test.Common.Mocks;
 
 namespace Queueware.Dataframework.Test.Unit.Core.Specifications.Base;

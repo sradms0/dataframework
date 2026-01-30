@@ -6,7 +6,7 @@ using Queueware.Dataframework.Test.Unit.Test.Common.Mocks;
 
 namespace Queueware.Dataframework.Test.Unit.Core.Specifications.Operators;
 
-public class AndSpecificationShould : AndSpecificationTestFixture
+public class AndNotSpecificationShould : AndNotSpecificationTestFixture
 {
     [Test, Combinatorial]
     public void Check_If_Is_IsSatisfiedBy([Values(false, true)] bool isFirstSatisfied,
@@ -14,7 +14,7 @@ public class AndSpecificationShould : AndSpecificationTestFixture
     {
         // Arrange
         SetupPrimaryAndOtherExpression(isFirstSatisfied, isSecondSatisfied);
-        var expectedResult = isFirstSatisfied && isSecondSatisfied;
+        var expectedResult = isFirstSatisfied && !isSecondSatisfied;
         bool? result = null;
         
         // Act (define)
@@ -38,7 +38,7 @@ public class AndSpecificationShould : AndSpecificationTestFixture
         Expression<Func<MockDataType1, bool>>? result = null;
 
         var expectedCompiledFuncResult = Expression.Compile().Invoke(Candidate) && 
-                                         OtherExpression.Compile().Invoke(Candidate);
+                                         !OtherExpression.Compile().Invoke(Candidate);
         bool? compiledFuncResult = null;
         
         // Act (define)

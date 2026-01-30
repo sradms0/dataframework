@@ -1,5 +1,6 @@
 using System.Linq.Expressions;
 using Queueware.Dataframework.Abstractions.Specifications;
+using Queueware.Dataframework.Core.Specifications.Internal;
 
 namespace Queueware.Dataframework.Core.Specifications.Operators;
 
