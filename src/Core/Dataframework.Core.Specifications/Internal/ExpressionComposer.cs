@@ -31,6 +31,16 @@ internal static class ExpressionComposer
         
         return Expression.Lambda<Func<T, bool>>(orExpressionBody, leftExpression.Parameters[0]);
     }
+    
+    public static Expression<Func<T, bool>> OrElseNot<T>(Expression<Func<T, bool>> leftExpression,
+        Expression<Func<T, bool>> rightExpression)
+    {
+        var syncedRightExpressionBody = SyncRightExpressionParametersToLeft(leftExpression, rightExpression);
+        syncedRightExpressionBody = Expression.Not(syncedRightExpressionBody);
+        var orNotExpressionBody = Expression.OrElse(leftExpression.Body, syncedRightExpressionBody);
+        
+        return Expression.Lambda<Func<T, bool>>(orNotExpressionBody, leftExpression.Parameters[0]);
+    }
 
     private static Expression SyncRightExpressionParametersToLeft<T>(Expression<Func<T, bool>> leftExpression,
         Expression<Func<T, bool>> rightExpression)
