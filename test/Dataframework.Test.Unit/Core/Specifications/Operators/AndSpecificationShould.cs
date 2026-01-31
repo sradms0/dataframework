@@ -32,13 +32,10 @@ public class AndSpecificationShould : AndSpecificationTestFixture
     {
         // Arrange
         SetupPrimaryAndOtherExpression(isFirstSatisfied, isSecondSatisfied);
-        var expressionBody = System.Linq.Expressions.Expression.AndAlso(Expression.Body, OtherExpression.Body);
-        var parameter = Expression.Parameters[0];
-        var expectedResult = System.Linq.Expressions.Expression.Lambda<Func<MockDataType1, bool>>(expressionBody, parameter);
+        var expectedResult = CreateExpectedExpressionResult(ExpressionBuildSpecifier.AndAlso);
         Expression<Func<MockDataType1, bool>>? result = null;
 
-        var expectedCompiledFuncResult = Expression.Compile().Invoke(Candidate) && 
-                                         OtherExpression.Compile().Invoke(Candidate);
+        var expectedCompiledFuncResult = expectedResult.Compile().Invoke(Candidate);
         bool? compiledFuncResult = null;
         
         // Act (define)
@@ -47,7 +44,8 @@ public class AndSpecificationShould : AndSpecificationTestFixture
 
         // Assert
         toExpression.Should().NotThrow();
-        result.Should().BeEquivalentTo(expectedResult);
+        result.Should().NotBeNull();
+        result.ToString().Should().Be(expectedResult.ToString());
         
         compileAndRunFuncResult.Should().NotThrow();
         compiledFuncResult.Should().Be(expectedCompiledFuncResult);

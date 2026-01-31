@@ -11,7 +11,7 @@ public abstract class OperatorSpecificationTestFixture<TOperatorSpecification, T
 {
     protected TCandidate Candidate { get; set; } = null!;
 
-    protected Expression<Func<TCandidate, bool>> Expression { get; set; } = null!;
+    protected Expression<Func<TCandidate, bool>> TestExpression { get; set; } = null!;
     
     protected Mock<ISpecification<TCandidate>> MockSpecification { get; set; } = null!;
     
@@ -20,9 +20,9 @@ public abstract class OperatorSpecificationTestFixture<TOperatorSpecification, T
     public virtual void SetUp()
     {
         Candidate = Create<TCandidate>();
-        Expression = _ => true;
+        TestExpression = _ => true;
         MockSpecification = new Mock<ISpecification<TCandidate>>();
-        MockSpecification.Setup(specification => specification.ToExpression()).Returns(Expression);
+        MockSpecification.Setup(specification => specification.ToExpression()).Returns(TestExpression);
         
         InitializeSystemUnderTest();
     }
