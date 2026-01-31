@@ -7,6 +7,7 @@ using Queueware.Dataframework.Test.Common.Mocks.Entities;
 namespace Queueware.Dataframework.Test.Unit.Core.Specifications.Operators.Fixtures;
 
 public abstract class OperatorSpecificationTestFixture<TOperatorSpecification, TId, TCandidate> : CommonTestBase
+    where TOperatorSpecification : ISpecification<TCandidate>
     where TCandidate : MockGenericAbstractBaseType<TId>
 {
     protected TCandidate Candidate { get; set; } = null!;

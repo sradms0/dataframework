@@ -4,16 +4,14 @@ using Queueware.Dataframework.Test.Unit.Test.Common.Mocks;
 
 namespace Queueware.Dataframework.Test.Unit.Core.Specifications.Operators;
 
-public class AndNotSpecificationShould : BinaryOperatorSpecificationTestFixture<AndNotSpecification<MockDataType1>,
-    string, MockDataType1>
+public class OrSpecificationShould : BinaryOperatorSpecificationTestFixture<OrSpecification<MockDataType1>, string, MockDataType1>
 {
-
     protected override ExpressionBuildSpecifier SetExpressionBuildSpecifier { get; init; } =
-        ExpressionBuildSpecifier.AndAlsoNot;
+        ExpressionBuildSpecifier.Or;
     
     protected override void InitializeSystemUnderTest()
     {
         OperatorSpecification =
-            new AndNotSpecification<MockDataType1>(MockSpecification.Object, MockOtherSpecification.Object);
+            new OrSpecification<MockDataType1>(MockSpecification.Object, MockOtherSpecification.Object);
     }
 }
