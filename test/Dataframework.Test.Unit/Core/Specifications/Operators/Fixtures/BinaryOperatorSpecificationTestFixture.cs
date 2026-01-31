@@ -108,7 +108,8 @@ public abstract class BinaryOperatorSpecificationTestFixture<TOperatorSpecificat
         Unspecified = 0,
         AndAlso = 1,
         AndAlsoNot = 2,
-        Or = 3
+        Or = 3,
+        OrNot = 4
     }
 
     private BinaryExpression CreateExpectedExpressionBody(Expression otherTestExpressionBody)
@@ -121,6 +122,9 @@ public abstract class BinaryOperatorSpecificationTestFixture<TOperatorSpecificat
                 Expression.Not(otherTestExpressionBody)),
             
             ExpressionBuildSpecifier.Or => Expression.OrElse(TestExpression.Body, otherTestExpressionBody),
+            
+            ExpressionBuildSpecifier.OrNot => Expression.OrElse(TestExpression.Body, 
+                Expression.Not(otherTestExpressionBody)),
             
             ExpressionBuildSpecifier.Unspecified => throw new InvalidOperationException(),
             
@@ -135,6 +139,7 @@ public abstract class BinaryOperatorSpecificationTestFixture<TOperatorSpecificat
             ExpressionBuildSpecifier.AndAlso => isFirstSatisfied && isSecondSatisfied,
             ExpressionBuildSpecifier.AndAlsoNot => isFirstSatisfied && !isSecondSatisfied,
             ExpressionBuildSpecifier.Or => isFirstSatisfied || isSecondSatisfied,
+            ExpressionBuildSpecifier.OrNot => isFirstSatisfied || !isSecondSatisfied,
             ExpressionBuildSpecifier.Unspecified => throw new InvalidOperationException(),
             _ => throw new InvalidOperationException()
         };
