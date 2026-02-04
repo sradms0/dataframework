@@ -7,6 +7,9 @@ public class NotSpecification<T>(ISpecification<T> specification) : Specificatio
 {
     public override Expression<Func<T, bool>> ToExpression()
     {
-        throw new NotImplementedException();
+        var expression = specification.ToExpression();
+        var expressionBody = Expression.Not(expression.Body);
+        
+        return Expression.Lambda<Func<T, bool>>(expressionBody, expression.Parameters[0]);
     }
 }
