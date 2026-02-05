@@ -1,31 +1,17 @@
 using System.Linq.Expressions;
 using FluentAssertions;
-using Moq;
 using NUnit.Framework;
-using Queueware.Dataframework.Core.Specifications.Operators;
-using Queueware.Dataframework.Test.Unit.Core.Specifications.Operators.Fixtures;
 using Queueware.Dataframework.Test.Unit.Test.Common.Mocks;
 
-namespace Queueware.Dataframework.Test.Unit.Core.Specifications.Operators;
+namespace Queueware.Dataframework.Test.Unit.Core.Specifications.Operators.Unary;
 
-public class NotSpecificationShould : OperatorSpecificationTestFixture<NotSpecification<MockDataType1>, string, MockDataType1>
+public class NotSpecificationShould : NotSpecificationTestFixture
 {
-    [SetUp]
-    public new void SetUp()  => base.SetUp();
-    
     [Test, Combinatorial]
     public void Check_If_IsSatisfiedBy([Values(false, true)] bool isSatisfied)
     {
         // Arrange
-        var name = Candidate.Name;
-        if (isSatisfied)
-        {
-            name = Create<string>();
-        }
-        TestExpression = mockDataType1 => mockDataType1.Name == name;
-        MockSpecification.Setup(specification => specification.ToExpression()).Returns(TestExpression);
-        InitializeSystemUnderTest();
-        
+        Arrange(isSatisfied);
         bool? result = null;
         
         // Act (define)
@@ -34,23 +20,14 @@ public class NotSpecificationShould : OperatorSpecificationTestFixture<NotSpecif
         // Assert
         isSatisfiedBy.Should().NotThrow();
         result.Should().Be(isSatisfied);
-        MockSpecification.Verify(specification => specification.ToExpression(), Times.Once);
-        MockSpecification.VerifyNoOtherCalls();
+        VerifyMockSpecificationToExpressionCalls();
     }
 
     [Test, Combinatorial]
     public void Translate_ToExpression([Values(false, true)] bool isSatisfied)
     {
         // Arrange
-        var name = Candidate.Name;
-        if (isSatisfied)
-        {
-            name = Create<string>();
-        }
-        TestExpression = mockDataType1 => mockDataType1.Name == name;
-        MockSpecification.Setup(specification => specification.ToExpression()).Returns(TestExpression);
-        InitializeSystemUnderTest();
-        
+        Arrange(isSatisfied);
         var expectedExpressionBody = Expression.Not(TestExpression.Body);
         var expectedExpressionParameter = TestExpression.Parameters[0];
         var expectedResult = Expression
@@ -72,12 +49,6 @@ public class NotSpecificationShould : OperatorSpecificationTestFixture<NotSpecif
         compileAndRunFuncResult.Should().NotThrow();
         compiledFuncResult.Should().Be(expectedCompiledFuncResult);
         
-        MockSpecification.Verify(specification => specification.ToExpression(), Times.Once);
-        MockSpecification.VerifyNoOtherCalls();
-    }
-    
-    protected override void InitializeSystemUnderTest()
-    {
-        OperatorSpecification = new NotSpecification<MockDataType1>(MockSpecification.Object);
+        VerifyMockSpecificationToExpressionCalls();
     }
 }

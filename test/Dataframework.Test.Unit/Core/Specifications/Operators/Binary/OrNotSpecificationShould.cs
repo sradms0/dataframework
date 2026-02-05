@@ -2,17 +2,16 @@ using Queueware.Dataframework.Core.Specifications.Operators;
 using Queueware.Dataframework.Test.Unit.Core.Specifications.Operators.Fixtures;
 using Queueware.Dataframework.Test.Unit.Test.Common.Mocks;
 
-namespace Queueware.Dataframework.Test.Unit.Core.Specifications.Operators;
+namespace Queueware.Dataframework.Test.Unit.Core.Specifications.Operators.Binary;
 
-public class AndSpecificationShould : BinaryOperatorSpecificationTestFixture<
-    AndSpecification<MockDataType1>, string, MockDataType1>
+public class OrNotSpecificationShould : BinaryOperatorSpecificationTestFixture<OrNotSpecification<MockDataType1>, string, MockDataType1>
 {
     protected override ExpressionBuildSpecifier SetExpressionBuildSpecifier { get; init; } =
-        ExpressionBuildSpecifier.AndAlso;
-
+        ExpressionBuildSpecifier.OrNot;
+    
     protected override void InitializeSystemUnderTest()
     {
         OperatorSpecification =
-            new AndSpecification<MockDataType1>(MockSpecification.Object, MockOtherSpecification.Object);
+            new OrNotSpecification<MockDataType1>(MockSpecification.Object, MockOtherSpecification.Object);
     }
 }

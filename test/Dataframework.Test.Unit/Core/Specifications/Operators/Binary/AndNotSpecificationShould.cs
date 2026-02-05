@@ -2,7 +2,7 @@ using Queueware.Dataframework.Core.Specifications.Operators;
 using Queueware.Dataframework.Test.Unit.Core.Specifications.Operators.Fixtures;
 using Queueware.Dataframework.Test.Unit.Test.Common.Mocks;
 
-namespace Queueware.Dataframework.Test.Unit.Core.Specifications.Operators;
+namespace Queueware.Dataframework.Test.Unit.Core.Specifications.Operators.Binary;
 
 public class AndNotSpecificationShould : BinaryOperatorSpecificationTestFixture<AndNotSpecification<MockDataType1>,
     string, MockDataType1>
